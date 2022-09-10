@@ -1,16 +1,17 @@
 const express = require("express");
-const morgan = require('morgan')
+const morgan = require("morgan");
 const dotenv = require("dotenv").config();
-const router = require('./Routes')
+const router = require("./Routes");
+const errorHandler = require("./Middlewares/errorHandler");
 
 const port = process.env.PORT;
 const app = express();
 
-app.use(morgan('combined'))
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(router)
+app.use("", router);
 
 app.use((_req, res) => {
 	res.status(404).json({
@@ -19,6 +20,8 @@ app.use((_req, res) => {
 		data: null,
 	});
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => {
 	console.log(`start app on port ${port}`);
