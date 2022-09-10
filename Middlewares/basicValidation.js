@@ -1,4 +1,4 @@
-const { containsOnlyNumbers, checkSumDigitIsValid, noWhiteSpace } = require("../Helpers/NationalIDHelpers");
+const { containsOnlyNumbers, noWhiteSpace } = require("../Helpers/NationalIDHelpers");
 
 module.exports = async (req, res, next) => {
 	req.params.ID = noWhiteSpace(req.params.ID)
@@ -14,10 +14,13 @@ module.exports = async (req, res, next) => {
 		throw new Error("National ID should Contain 14 numbers");
 	}
 
-	if (!checkSumDigitIsValid(ID)) {
+	if(ID.charAt(0) !== '2' && ID.charAt(0) !== '3'){
 		res.status(400);
-		throw new Error("National ID is Invalid");
+		throw new Error("National ID should start with a 2 or a 3");
 	}
-
+	if(ID.charAt(13) === '0'){
+		res.status(400);
+		throw new Error("Last digit should be from 1-9");
+	}
 	next();
 };
