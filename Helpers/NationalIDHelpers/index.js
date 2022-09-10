@@ -1,3 +1,5 @@
+const governorates = require("./governorates");
+
 module.exports = {
 	containsOnlyNumbers: (str) => {
 		return /^[0-9]+$/.test(str);
@@ -15,5 +17,18 @@ module.exports = {
 			0
 		);
 		return (10 - (sum % 10)) % 10 === parseInt(checkSumDigit);
+	},
+	getBirthDay: (str) => {
+		return `${str.substring(5)}/${str.substring(3, 5)}/${
+			str.charAt(0) == 2 ? "19" : "20"
+		}${str.substring(1, 3)}`;
+	},
+	getGovernorate: (str) => {
+		return governorates[str];
+	},
+
+	getGender: (str) => {
+        console.log(str)
+		return parseInt(str) % 2 === 0 ? "Female" : "Male";
 	},
 };
