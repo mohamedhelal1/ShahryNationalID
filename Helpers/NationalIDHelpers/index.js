@@ -28,7 +28,6 @@ module.exports = {
 	},
 
 	getGender: (str) => {
-        console.log(str)
 		return parseInt(str) % 2 === 0 ? "Female" : "Male";
 	},
 };

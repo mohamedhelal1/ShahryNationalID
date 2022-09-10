@@ -1,9 +1,8 @@
 const { containsOnlyNumbers, checkSumDigitIsValid, noWhiteSpace } = require("../Helpers/NationalIDHelpers");
 
 module.exports = async (req, res, next) => {
-	let ID = req.params.ID;
-
-	ID = noWhiteSpace(ID);
+	req.params.ID = noWhiteSpace(req.params.ID)
+    let ID = req.params.ID;
 
 	if (!containsOnlyNumbers(ID)) {
 		res.status(400);
